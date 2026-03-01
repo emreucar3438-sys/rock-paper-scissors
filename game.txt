@@ -1,0 +1,167 @@
+/*
+
+ * ROCK PAPER SCISSORS GAME
+
+ * Description: Rock-paper-scissors game against computer
+
+ * Rule: First to win 5 rounds wins the game
+
+ * Author: [Emre Uçar]
+
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+
+    // Variable declarations
+
+    int result;              // Stores round result (0: tie, 1: player wins, 2: computer wins)
+
+    int player_score = 0;    // Number of rounds won by player
+
+    int computer_score = 0;  // Number of rounds won by computer
+
+    int player_move;         // Player's choice (0-2)
+
+    int computer_move;       // Computer's random choice
+
+    
+
+    srand(time(NULL));
+
+  
+
+    printf("=== ROCK PAPER SCISSORS GAME ===\n");
+
+    printf("First to 5 wins!\n\n");
+
+    
+
+    // Main game loop - continues until someone wins 5 rounds
+
+    while(player_score < 5 && computer_score < 5){
+
+
+        // Display current score
+
+        printf("\n--- SCORE: You %d - %d Computer ---\n", player_score, computer_score);
+        // Get player's move
+
+        printf("Make your choice (0: Rock, 1: Paper, 2: Scissors): ");
+
+        scanf("%d", &player_move);
+
+        
+
+        // Invalid input check
+
+        if (player_move < 0 || player_move > 2) {
+
+            printf("ERROR: You can only enter 0, 1, or 2!\n");
+
+            continue; // Return to beginning of loop on invalid input
+
+        }
+
+        // Display player's choice
+
+        switch(player_move){
+
+            case 0: printf("You chose ROCK.\n"); break;
+
+            case 1: printf("You chose PAPER.\n"); break;
+
+            case 2: printf("You chose SCISSORS.\n"); break;
+
+        }
+
+        // Generate random move for computer (0, 1, or 2)
+
+        computer_move = rand() % 3;
+
+        
+
+        // Display computer's choice
+
+        switch(computer_move){
+
+            case 0: printf("Computer chose ROCK.\n"); break;
+
+            case 1: printf("Computer chose PAPER.\n"); break;
+
+            case 2: printf("Computer chose SCISSORS.\n"); break;
+
+        }
+
+        /*
+
+         * Winner calculation formula:
+
+         * (player - computer + 3) % 3
+
+         * Result 0: Tie
+
+         * Result 1: Player wins
+
+         * Result 2: Computer wins
+
+         */
+
+        result = (player_move - computer_move + 3) % 3;
+
+        
+
+        // Evaluate round result and update score
+
+        if(result == 0){
+
+            printf(">> TIE!\n");
+
+        }
+
+        else if(result == 1){
+
+            printf(">> YOU WIN!\n");
+
+            player_score++;  // Increment player score
+
+        }
+
+        else{
+
+            printf(">> COMPUTER WINS!\n");
+
+            computer_score++;  // Increment computer score
+
+        }
+
+    }
+
+    // Game end - Display final scores
+
+    printf("\n========== GAME OVER ==========\n");
+
+    printf("Final Score: You %d - %d Computer\n", player_score, computer_score);
+
+    
+
+    // Determine overall winner and display message
+
+    if(player_score > computer_score){
+
+        printf("CONGRATULATIONS! YOU WON!\n");
+
+    }
+
+    else{
+
+        printf("SORRY, COMPUTER WON!\n");
+
+    }
+
+    return 0;
+
+}
